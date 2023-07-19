@@ -1,0 +1,25 @@
+type Query {
+    job(id: ID!): Job
+    jobs: [Job!]
+    company(id: ID!): Company
+}
+
+""" Reprecents a Company posted on our board"""
+type Company {
+    id: ID!
+    name: String!
+    description: String
+    jobs: [Job!]!
+}
+
+# This is is a regular comment, and are only visible to the developer
+""" Reprecents a Job ad posted on our board"""
+
+type Job {
+    id: ID!
+    """This is a __comment__ for `graphql` documentation"""
+    date: String
+    company: Company!
+    title: String!
+    description: String
+}
