@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CREATE_JOB } from '../lib/graphql/queries';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
