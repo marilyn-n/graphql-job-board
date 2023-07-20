@@ -4,13 +4,8 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_JOB_BY_ID, REMOVE_JOB } from "../lib/graphql/queries";
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../lib/auth';
 
 function JobPage() {
-  const user = getUser();
-
-  console.log(user);
-
 
   const navigate = useNavigate();
   const { jobId } = useParams();

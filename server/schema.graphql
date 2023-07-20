@@ -1,7 +1,16 @@
+# This is is a regular comment, and are only visible to the developer
 type Query {
     job(id: ID!): Job
     jobs: [Job!]
     company(id: ID!): Company
+    jobsCount: Int
+}
+
+type Mutation {
+    # this are the arguments we can access to in the resolvers args parameter
+    createJob(input: CreateJobInput!): Job
+    deleteJob(id: ID!): Job
+    updateJob(input: UpdateJobInput!): Job
 }
 
 """ Reprecents a Company posted on our board"""
@@ -10,9 +19,9 @@ type Company {
     name: String!
     description: String
     jobs: [Job!]!
+    isHiring: Boolean
 }
 
-# This is is a regular comment, and are only visible to the developer
 """ Reprecents a Job ad posted on our board"""
 
 type Job {
@@ -20,6 +29,17 @@ type Job {
     """This is a __comment__ for `graphql` documentation"""
     date: String
     company: Company!
+    title: String!
+    description: String
+}
+
+input CreateJobInput {
+    title: String!
+    description: String
+}
+
+input UpdateJobInput {
+    id: ID!
     title: String!
     description: String
 }
