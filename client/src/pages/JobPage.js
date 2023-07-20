@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useQuery } from "@apollo/client";
-import { GET_JOB_BY_ID } from "../lib/graphql/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_JOB_BY_ID, REMOVE_JOB } from "../lib/graphql/queries";
+import { useNavigate } from 'react-router-dom';
 
 function JobPage() {
+  const navigate = useNavigate();
   const { jobId } = useParams();
 
   const { loading, error, data } = useQuery(GET_JOB_BY_ID, {
     variables: { "id": jobId }
   });
-
+  const [triggerRemoveJobMutation, { isLoading, hasError, result }] = useMutation(REMOVE_JOB, {
+    variables: { "deleteJobId": jobId }
+  });
   const [jobDetails, setJobDetails] = useState({});
+
+  const handleJobRemove = async (id) => {
+    triggerRemoveJobMutation();
+    navigate("/");
+  }
 
   useEffect(() => {
     if (data) {
@@ -40,6 +49,9 @@ function JobPage() {
         <p className="block">
           {jobDetails.description}
         </p>
+      </div>
+      <div>
+        <button onClick={(jobId) => handleJobRemove(jobId)}>Remove</button>
       </div>
     </div>
   );
