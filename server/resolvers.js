@@ -27,7 +27,7 @@ export const resolvers = {
     Company: {
         // Company resolvers only
         jobs: (company) => getJobsByCompany(company.id),
-        isHiring: async (company) => {
+        isHiring: async (company, args, ctx) => {
             const jobsArr = await getJobsByCompany(company.id);
             return jobsArr.length ? true : false;
         }
@@ -37,6 +37,7 @@ export const resolvers = {
         // Job resolvers only
         company: (job) => getCompany(job.companyId),
         date: (job) => toIsoDate(job.createdAt),
+        canRemove: (job, args, context) => job.companyId === context.user.companyId,
     },
 
     Mutation: {
@@ -52,7 +53,7 @@ export const resolvers = {
         deleteJob: async (_root, { id }, { user }) => {
             if (!user) throw unauthorizedError('Unauthorized: Missing authentication');
             const job = await deleteJob(id, user.companyId);
-            if (!job) throw notFoundError('No Job found with id ' + id);
+            if (!job) { throw notFoundError('No Job found with id ' + id) };
             return job;
         },
         updateJob: async (_root, { input: { id, title, description } }, { user }) => {

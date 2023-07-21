@@ -32,6 +32,7 @@ function JobPage() {
   if (loading) return <p>Loading ...</p>;
   if (error || hasError) return `Error! ${error}`;
 
+  console.log(jobDetails)
   return (
     <div>
       <h1 className="title is-2">
@@ -50,10 +51,9 @@ function JobPage() {
           {jobDetails.description}
         </p>
       </div>
-      <div>
+      {jobDetails.canRemove ? <div>
         <button onClick={(jobId) => handleJobRemove(jobId)}>Remove</button>
-      </div>
-
+      </div> : null}
     </div>
   );
 }

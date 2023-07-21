@@ -7,6 +7,7 @@ fragment jobDetail on Job {
   title
   description
   date
+  canRemove
   company {
     id
     name
@@ -50,7 +51,7 @@ export const GET_COMPANY_BY_ID = gql`
 
 
 export const CREATE_JOB = gql`
-  mutation($input: CreateJobInput!) {
+  mutation exampleCreateJob($input: CreateJobInput!) {
     job: createJob(input: $input) {
       id
     }
@@ -58,7 +59,7 @@ export const CREATE_JOB = gql`
 `;
 
 export const REMOVE_JOB = gql`
-  mutation($deleteJobId: ID!) {
+  mutation exampleRemoveJob($deleteJobId: ID!) {
     job: deleteJob(id: $deleteJobId) {
       id
       title

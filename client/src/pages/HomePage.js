@@ -4,7 +4,9 @@ import { useQuery } from '@apollo/client';
 import { GET_JOBS_LIST } from '../lib/graphql/queries';
 
 function HomePage() {
-  const { data, error, loading } = useQuery(GET_JOBS_LIST);
+  const { data, error, loading } = useQuery(GET_JOBS_LIST, {
+    fetchPolicy: 'network-only', // Doesn't check cache before making a network request
+  });
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
