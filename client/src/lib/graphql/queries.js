@@ -1,33 +1,36 @@
 import { gql } from '@apollo/client';
 
+const jobDetailFragment = gql`
+
+fragment jobDetail on Job {
+  id
+  title
+  description
+  date
+  company {
+    id
+    name
+  }
+}
+
+`;
+
 export const GET_JOBS_LIST = gql`
   query exampleJobsList {
     jobs {
-      id
-      title
-      description
-      date
-      company {
-        id
-        name
-      }
+     ...jobDetail
     } 
   }
+  ${jobDetailFragment}
 `;
 
 export const GET_JOB_BY_ID = gql`
   query exampleJobById($id: ID!) {
     job(id: $id) {
-      id
-      title
-      date
-      description
-      company {
-        id
-        name
-      }
+      ...jobDetail
     }
   }
+  ${jobDetailFragment}
 `;
 
 export const GET_COMPANY_BY_ID = gql`
@@ -44,6 +47,7 @@ export const GET_COMPANY_BY_ID = gql`
   }
  }
 `;
+
 
 export const CREATE_JOB = gql`
   mutation($input: CreateJobInput!) {
