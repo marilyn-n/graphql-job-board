@@ -35,7 +35,9 @@ export const resolvers = {
 
     Job: {
         // Job resolvers only
-        company: (job) => getCompany(job.companyId),
+        company: (job, _args, { companyLoader }) => {
+            return companyLoader.load(job.companyId)
+        },
         date: (job) => toIsoDate(job.createdAt),
         canRemove: (job, args, context) => job.companyId === context.user.companyId,
     },
