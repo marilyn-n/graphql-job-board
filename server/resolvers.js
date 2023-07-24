@@ -10,8 +10,8 @@ export const resolvers = {
             if (!job) throw notFoundError('No Job found with id ' + args.id);
             return job;
         },
-        jobs: (_root, { limit }) => {
-            return getJobs(limit);
+        jobs: (_root, { limit, offset }) => {
+            return getJobs(limit, offset);
         },
         company: async (_root, args) => {
             const company = await getCompany(args.id);
