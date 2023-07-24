@@ -1,9 +1,14 @@
 # This is is a regular comment, and are only visible to the developer
 type Query {
     job(id: ID!): Job
-    jobs(limit: Int, offset: Int): [Job!]
+    jobs(limit: Int, offset: Int): JobSubList
     company(id: ID!): Company
     jobsCount: Int
+}
+
+type JobSubList {
+    items: [Job!]!
+    totalCount: Int!
 }
 
 type Mutation {

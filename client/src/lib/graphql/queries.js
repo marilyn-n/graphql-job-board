@@ -16,10 +16,13 @@ fragment jobDetail on Job {
 
 `;
 
-export const GET_JOBS_LIST = gql`
-  query exampleJobsList {
-    jobs {
-     ...jobDetail
+export const GET_JOBS = gql`
+  query exampleJobsList($limit: Int, $offset: Int) {
+    jobs(limit: $limit, offset: $offset) {
+      items {
+        ...jobDetail
+      }
+      totalCount
     } 
   }
   ${jobDetailFragment}

@@ -20,8 +20,6 @@ function CompanyPage() {
   if (loading) return 'Loading...'
   if (error) return `Error: ${error}`
 
-  console.log(companyDetails);
-
   return (
     <div>
       <h1 className="title">

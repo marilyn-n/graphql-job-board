@@ -16,7 +16,6 @@ function CreateJobPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('should post a new job:', { title, description });
     const { data } = await triggerCreateJobMutation();
     const jobId = data.job.id
     if (!error) navigate(`/jobs/${jobId}`);

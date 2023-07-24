@@ -1,4 +1,4 @@
-import { getJobs, getJob, getJobsByCompany, createJob, deleteJob, updateJob } from "./db/jobs.js";
+import { getJobs, getJob, getJobsByCompany, createJob, deleteJob, updateJob, countJobs } from "./db/jobs.js";
 import { getCompany } from "./db/companies.js";
 import { GraphQLError } from "graphql";
 
@@ -10,8 +10,10 @@ export const resolvers = {
             if (!job) throw notFoundError('No Job found with id ' + args.id);
             return job;
         },
-        jobs: (_root, { limit, offset }) => {
-            return getJobs(limit, offset);
+        jobs: async (_root, { limit, offset }) => {
+            const items = await getJobs(limit, offset);
+            const totalCount = await countJobs();
+            return { items, totalCount };
         },
         company: async (_root, args) => {
             const company = await getCompany(args.id);

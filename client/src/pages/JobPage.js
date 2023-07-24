@@ -32,7 +32,6 @@ function JobPage() {
   if (loading) return <p>Loading ...</p>;
   if (error || hasError) return `Error! ${error}`;
 
-  console.log(jobDetails)
   return (
     <div>
       <h1 className="title is-2">
